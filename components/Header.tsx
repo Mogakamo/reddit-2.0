@@ -2,6 +2,7 @@ import Image from 'next/image'
 import React from 'react'
 import { MenuIcon, ChevronDownIcon, HomeIcon, SearchIcon } from "@heroicons/react/solid"
 import { BellIcon, ChatIcon , GlobeIcon, PlusIcon, SparklesIcon, SpeakerphoneIcon, VideoCameraIcon } from "@heroicons/react/outline"
+import {FcReddit} from 'react-icons/fc'
 
 const Header = () => {
     return (
@@ -24,7 +25,8 @@ const Header = () => {
                 <button type='submit' hidden />
             </form>
 
-            <div className='flex'>
+            <div className='flex items-center text-gray-500 space-x-2
+                mx-5 hidden lg:inline-flex'>
                 <SparklesIcon className='icon' />
                 <GlobeIcon className='icon' />
                 <VideoCameraIcon className='icon' />
@@ -33,6 +35,15 @@ const Header = () => {
                 <BellIcon className='icon' />
                 <PlusIcon className='icon' />
                 <SpeakerphoneIcon className='icon' />
+            </div>
+            <div className='ml-5 flex items-center lg:hidden'>
+                <MenuIcon className='icon' />
+            </div>
+            {/* Signin/signout  */}
+            <div className='hidden lg:flex items-center space-x-2 border
+                border-gray-100 p-2 rounded-full'>
+                <FcReddit className='icon' />
+                <p className='text-gray-400'>Sign in</p>
             </div>
         </div>
     )
