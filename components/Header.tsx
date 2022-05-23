@@ -1,14 +1,18 @@
 import Image from 'next/image'
 import React from 'react'
 import { MenuIcon, ChevronDownIcon, HomeIcon, SearchIcon } from "@heroicons/react/solid"
-import { BellIcon, ChatIcon , GlobeIcon, PlusIcon, SparklesIcon, SpeakerphoneIcon, VideoCameraIcon } from "@heroicons/react/outline"
-import {FcReddit} from 'react-icons/fc'
+import { BellIcon, ChatIcon, GlobeIcon, PlusIcon, SparklesIcon, SpeakerphoneIcon, VideoCameraIcon } from "@heroicons/react/outline"
+import { FcReddit } from 'react-icons/fc'
+import { signIn, signOut, useSession } from 'next-auth/react'
 
 const Header = () => {
+    const { data: session } = useSession()
     return (
         <div className='sticky top-0 z-50 flex bg-white px-4 py-2 shadow-sm'>
-            <div className='relative h-10 w-20 flex-shrink-0 cursor-pointer'>
-                <Image src="https://links.papareact.com/fqy" objectFit='contain' layout="fill" />
+            <div className='flex items-center'>
+                <div className='relative h-10 w-20 flex-shrink-0 cursor-pointer'>
+                    <Image src="https://links.papareact.com/fqy" objectFit='contain' layout="fill" />
+                </div>
             </div>
 
             <div className='flex items-center mx-7 xl:min-w-[300px]'>
@@ -40,11 +44,22 @@ const Header = () => {
                 <MenuIcon className='icon' />
             </div>
             {/* Signin/signout  */}
-            <div className='hidden lg:flex items-center space-x-2 border
+            {session ? (
+                <div onClick={() => signOut()} className='hidden lg:flex items-center space-x-2 border
                 border-gray-100 p-2 rounded-full'>
-                <FcReddit className='icon' />
-                <p className='text-gray-400'>Sign in</p>
-            </div>
+                    <FcReddit className='icon' />
+
+                    <p className='truncate'>{session?.user?.name}</p>
+                    <p className='text-gray-400'>Sign out</p>
+                </div>
+            ) : (
+                <div onClick={() => signIn()} className='hidden lg:flex items-center space-x-2 border
+                border-gray-100 p-2 rounded-full'>
+                    <FcReddit className='icon' />
+                    <p className='text-gray-400'>Sign in</p>
+                </div>
+            )}
+
         </div>
     )
 }
