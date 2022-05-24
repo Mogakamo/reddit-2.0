@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react'
-import React from 'react'
+import React, {useState} from 'react'
 import Avatar from './Avatar'
 import { LinkIcon, PhotographIcon } from '@heroicons/react/outline'
 import { useForm } from 'react-hook-form'
@@ -11,9 +11,9 @@ type FormData = {
   subreddit: string
 }
 
-const PostBox = () => {
+const PostBox = () =>  {
   const { data: session } = useSession()
-  const { imageBoxOpen, setImageBoxOpen } = React.useState<boolean>(false)
+  const { imageBoxOpen, setImageBoxOpen } = useState<boolean>(false)
   const {
     register,
     setValue,
@@ -43,6 +43,7 @@ const PostBox = () => {
         />
         <LinkIcon className="w -6 h-6 text-gray-300" />
       </div>
+      
 
       {!!watch('postTitle') && (
         <div className="flex flex-col py-2">
@@ -66,6 +67,18 @@ const PostBox = () => {
                 placeholder="i.e reactjs"
               />
             </div>
+
+            {imageBoxOpen && (
+              <div className="flex items-center px-2">
+              <p className="min-w-[90px]">Image url:</p>
+              <input
+                className="m-2 flex-1 bg-blue-50 p-2 outline-none"
+                {...register('postImage')}
+                type="text"
+                placeholder="Optional..."
+              />
+            </div>
+            )}
           </div>
         </div>
       )}
